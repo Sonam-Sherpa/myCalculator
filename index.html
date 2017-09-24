@@ -6,8 +6,19 @@
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js"></script>  
     <!-- <script src="lib/angular/angular.min.js"></script>  doesn't work sometimes -->
     <script src="js/controller.js"></script>
+
+<style>
+table tr input{
+    width: 208px;
+}
+table tr td button{
+    width: 50px;
+}
+</style>
+
     
 </head>
+
 <body ng-app = "myApp">
 
 <!--<div  ng-controller = "MyController">
@@ -16,15 +27,12 @@
 </div-->
 
 <div ng-controller = "MyCalc">
-    <h1>hi {{author.project}}</h1>
-    <span>window {{this['button'+i]}}</span>
-    <span>window {{i}}</span>
+    <h1>My {{author.project}}</h1>
 
     <table>
         <tr>
             <td colspan="4">
                 <input type="text" style="text-align:right" id="txtDisplayNumber" value="0"> <br>
-                <!-- <input type="text" ng-model="this['button' + i]" placeholder="click a button">  -->
             </td>
         </tr>
         <tr>
@@ -47,7 +55,7 @@
             </td>
         </tr>
         <tr>
-            <td><button onclick="defaultState(0)">esc</button></td>
+            <td><button onclick="defaultState(0)">C</button></td>
             <td><button onclick="valueSet(0)">0</button></td>
             <td><button onclick="valueSet('.')">.</button></td>
             <td><button onclick="calculation()" ng-init="button12 = '='">{{ button12 }}</button></td>
@@ -95,7 +103,7 @@
        operatorAction = operator;
        console.log("OperatorAction : " + operator);
        //Clear the displayBar
-       displayBar.innerText = "";
+       //displayBar.innerText = "";
     }
 
     function calculation(){
@@ -147,8 +155,9 @@
         document.getElementById("total").innerHTML = result.toString(); 
         firstNumber = result;
         secondNumber=result=0;
+        strSecondVal = "";
         operatorAction = "";
-        console.log("Calculation done" + "first# " + firstNumber + "second# " + secondNumber + "operator :" + operatorAction + "result:"+result );
+        console.log("Calculation done /n" + "first# " + firstNumber + "/nsecond# " + secondNumber + "/noperator :" + operatorAction + "/nresult:"+result );
     }
 
 

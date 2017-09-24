@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculator Demo</title>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js"></script>  
+    <!-- <script src="lib/angular/angular.min.js"></script>  doesn't work sometimes -->
+    <script src="js/controller.js"></script>
+    
+</head>
+<body ng-app = "myApp">
+
+<!--<div  ng-controller = "MyController">
+     <h1>hi {{author.name}}</h1>
+    <p>{{ author.title + ', ' + author.company }}</p> 
+</div-->
+
+<div ng-controller = "MyCalc">
+    <h1>hi {{author.project}}</h1>
+    <span>window {{this['button'+i]}}</span>
+    <span>window {{i}}</span>
+
+    <table>
+        <tr>
+            <td colspan="4">
+                <input type="text" style="text-align:right" id="txtDisplayNumber" value="0"> <br>
+                <!-- <input type="text" ng-model="this['button' + i]" placeholder="click a button">  -->
+            </td>
+        </tr>
+        <tr>
+                <td><button onclick="valueSet(7)" >7</button></td>
+                <td><button onclick="valueSet(8)" >8</button></td>
+                <td><button onclick="valueSet(9)" >9</button></td>
+                <td><button onclick="setOperator('/')" >/</button></td>
+        </tr>
+        <tr>
+                <td><button ng-click="i = 4" onclick="valueSet(4)" ng-init="button4 = '4'">{{ button4 }}</button></td>
+                <td><button ng-click="i = 5" onclick="valueSet(5)" ng-init="button5 = '5'">{{ button5 }}</button></td>
+                <td><button ng-click="i = 6" onclick="valueSet(6)" ng-init="button6 = '6'">{{ button6 }}</button></td>
+                <td><button onclick="setOperator('-')" ng-init="button61 = '-'">{{ button61 }}</button></td>
+        </tr>
+        <tr>
+            <td><button ng-click="i = 1" onclick="valueSet(1)" ng-init="button1 = '1'">{{ button1 }}</button></td>
+            <td><button ng-click="i = 2" onclick="valueSet(2)" ng-init="button2 = '2'">{{ button2 }}</button></td>
+            <td><button ng-click="i = 3" onclick="valueSet(3)" ng-init="button3 = '3'">{{ button3 }}</button></td>
+            <td> <button onclick="setOperator('+')" ng-init="button11 = '+'">{{ button11 }}</button>                  
+            </td>
+        </tr>
+        <tr>
+            <td><button onclick="defaultState(0)">esc</button></td>
+            <td><button onclick="valueSet(0)">0</button></td>
+            <td><button onclick="valueSet('.')">.</button></td>
+            <td><button onclick="calculation()" ng-init="button12 = '='">{{ button12 }}</button></td>
+        </tr>
+    </table>
+
+    <div >Total : <span id="total"></span></div>
+    <hr>
+    <hr>
+
+</div>
+
+<script>
+    var firstNumber = secondNumber = result = 0;
+    var strFirstVal = strSecondVal = "";
+    var operatorAction = ""; // This will define the action
+
+    var displayBar = document.getElementById("txtDisplayNumber"); //To show result
+    displayBar.innerText = "0";
+    console.log("start " + displayBar.value + " ?");
+
+
+    function valueSet(value){
+        //If there is no operator then firstNumber or secondNumber must continue.
+        if(!operatorAction) //number1 must continue postpend
+        {
+            strFirstVal += value;
+            firstNumber = parseInt(strFirstVal);
+            console.log(strFirstVal + " firstNumber :" + firstNumber);
+            displayBar.innerText = strFirstVal;
+            return;
+        }
+        else{
+            strSecondVal += value;
+            secondNumber = parseInt(strSecondVal);
+            console.log(strSecondVal + " secondNumber :" + secondNumber);
+            displayBar.innerText = strSecondVal;
+            return;
+        }
+        console.log("outside Return: unexpected ERROR");
+
+    }
+
+    function setOperator(operator){       
+       operatorAction = operator;
+       console.log("OperatorAction : " + operator);
+       //Clear the displayBar
+       displayBar.innerText = "";
+    }
+
+    function calculation(){
+        switch(operatorAction){
+            case "+":
+                addition();
+                break;
+            case "-":
+                substraction();
+                break;
+            case "/":
+                division();
+                break;
+            default:
+                break;
+
+        }
+        operatorAction="";
+    }
+
+    function defaultState(){
+        firstNumber = secondNumber = result = 0;
+        strFirstVal = strSecondVal = "";
+        operatorAction = ""; 
+        displayBar.innerText = "0";
+        console.log("default" + displayBar.value + " ?" );
+    }
+
+    function addition(){
+        result = firstNumber+secondNumber;
+        console.log(firstNumber+" + " + secondNumber + " = " + result );
+        setUpForNewCalculation();
+    }
+
+    function substraction(){
+        result = firstNumber-secondNumber;
+        console.log(firstNumber+" + " + secondNumber + " = " + result );
+        setUpForNewCalculation();
+    }
+
+    function division(){
+        result = firstNumber/secondNumber;
+        console.log(firstNumber+" + " + secondNumber + " = " + result );
+        setUpForNewCalculation();
+    }
+
+    function setUpForNewCalculation(){
+        displayBar.innerText = result;
+        document.getElementById("total").innerHTML = result.toString(); 
+        firstNumber = result;
+        secondNumber=result=0;
+        operatorAction = "";
+        console.log("Calculation done" + "first# " + firstNumber + "second# " + secondNumber + "operator :" + operatorAction + "result:"+result );
+    }
+
+
+
+</script>
+
+
+</body>
+</html>

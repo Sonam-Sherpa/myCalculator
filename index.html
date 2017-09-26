@@ -113,11 +113,14 @@ table tr td button{
 
     }
 
-    function setOperator(operator){       
-       operatorAction = operator;
-       console.log("OperatorAction : " + operator);
-       //Clear the displayBar
-       //displayBar.innerText = "";
+    function setOperator(operator){    
+        if(operatorAction != "")  {
+            calculation();
+        }             
+        operatorAction = operator;
+        console.log("OperatorAction : " + operator);
+        //Clear the displayBar
+        //displayBar.innerText = "";
     }
 
     function calculation(){
@@ -130,6 +133,9 @@ table tr td button{
                 break;
             case "/":
                 division();
+                break;
+            case "*":
+                multiply();
                 break;
             default:
                 break;
@@ -161,6 +167,11 @@ table tr td button{
     function division(){
         result = firstNumber/secondNumber;
         console.log(firstNumber+" + " + secondNumber + " = " + result );
+        setUpForNewCalculation();
+    }
+    function multiply(){
+        result = firstNumber*secondNumber;
+        console.log(firstNumber+" x " + secondNumber + " = " + result );
         setUpForNewCalculation();
     }
 

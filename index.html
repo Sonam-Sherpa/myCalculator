@@ -93,7 +93,7 @@ table tr td button{
 </div>
 
 <script>
-    var firstNumber = secondNumber = result = 0;
+    var firstNumber = secondNumber = total = 0;
     var strFirstVal = strSecondVal = "";
     var operatorAction = ""; // This will define the action
 
@@ -107,14 +107,14 @@ table tr td button{
         if(!operatorAction) //number1 must continue postpend
         {
             strFirstVal += value;
-            firstNumber = parseInt(strFirstVal);
+            firstNumber = parseFloat(strFirstVal);
             console.log(strFirstVal + " firstNumber :" + firstNumber);
             displayBar.innerText = strFirstVal;
             return;
         }
         else{
             strSecondVal += value;
-            secondNumber = parseInt(strSecondVal);
+            secondNumber = parseFloat(strSecondVal);
             console.log(strSecondVal + " secondNumber :" + secondNumber);
             displayBar.innerText = strSecondVal;
             return;
@@ -155,7 +155,7 @@ table tr td button{
     }
 
     function defaultState(){
-        firstNumber = secondNumber = result = 0;
+        firstNumber = secondNumber = total = 0;
         strFirstVal = strSecondVal = "";
         operatorAction = ""; 
         displayBar.innerText = "0";
@@ -163,42 +163,42 @@ table tr td button{
     }
 
     function addition(){
-        result = firstNumber+secondNumber;
-        console.log(firstNumber+" + " + secondNumber + " = " + result );
+        total = firstNumber+secondNumber;
+        console.log(firstNumber+" + " + secondNumber + " = " + total );
         setUpForNewCalculation();
     }
 
     function substraction(){
-        result = firstNumber-secondNumber;
-        console.log(firstNumber+" + " + secondNumber + " = " + result );
+        total = firstNumber-secondNumber;
+        console.log(firstNumber+" + " + secondNumber + " = " + total );
         setUpForNewCalculation();
     }
 
     function division(){
-        result = firstNumber/secondNumber;
-        console.log(firstNumber+" + " + secondNumber + " = " + result );
+        total = firstNumber/secondNumber;
+        console.log(firstNumber+" + " + secondNumber + " = " + total );
         setUpForNewCalculation();
     }
     function multiply(){
-        result = firstNumber*secondNumber;
-        console.log(firstNumber+" x " + secondNumber + " = " + result );
+        total = firstNumber*secondNumber;
+        console.log(firstNumber+" x " + secondNumber + " = " + total );
         setUpForNewCalculation();
     }
 
     function setUpForNewCalculation(){
-        displayBar.innerText = result;        
-        firstNumber = result;
+        displayBar.innerText = total;        
+        firstNumber = total;
         secondNumber=0;
-        strSecondVal = "";
+        strFirstVal = strSecondVal = "";
         operatorAction = "";
-        console.log("Calculation done /n" + "first# " + firstNumber + "/nsecond# " + secondNumber + "/noperator :" + operatorAction + "/nresult:"+result );
+        console.log("Calculation done /n" + "first# " + firstNumber + "/nsecond# " + secondNumber + "/noperator :" + operatorAction + "/nresult:"+total );
     }
 
     !function fooDebugging(){
         document.getElementById("firstNumber").innerHTML = firstNumber.toString(); 
-        document.getElementById("operator").innerHTML = secondNumber.toString(); 
-        document.getElementById("secondNumber").innerHTML = operatorAction.toString(); 
-        document.getElementById("total").innerHTML = result.toString(); 
+        document.getElementById("operator").innerHTML = operatorAction.toString(); 
+        document.getElementById("secondNumber").innerHTML = secondNumber.toString(); 
+        document.getElementById("total").innerHTML = total.toString(); 
         setTimeout(fooDebugging, 500);
     }();
 

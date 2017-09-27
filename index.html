@@ -122,8 +122,10 @@ table tr td button{
 
     }
 
-    function setOperator(operator){    
-        if(operatorAction != "" || operator == "x²" || operator == "√")  {
+    function setOperator(operator){  
+        if(operatorAction != "")
+            calculation();  
+        else if( operator == "x²" || operator == "√")  {
             operatorAction = operator;
             calculation();            
         }           

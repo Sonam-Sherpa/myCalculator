@@ -22,6 +22,10 @@ table tr td button{
     height: 45px;
     font-size: 18px;
 }
+.displayDebugResult div span{
+    width:100px;
+    display:inline-block;
+}
 </style>
 
     
@@ -76,9 +80,15 @@ table tr td button{
         </tr>
     </table>
 
-    <div >Total : <span id="total"></span></div>
     <hr>
+    <div class="displayDebugResult">
+        <div><span>1st number </span>= <span id="firstNumber"></span></div>
+        <div><span>Operator </span>= <span id="operator"></span></div>
+        <div><span>2nd number </span>= <span id="secondNumber"></span></div>
+        <div><span>Total </span>= <span id="total"></span></div>
+    </div>
     <hr>
+    
 
 </div>
 
@@ -176,14 +186,21 @@ table tr td button{
     }
 
     function setUpForNewCalculation(){
-        displayBar.innerText = result;
-        document.getElementById("total").innerHTML = result.toString(); 
+        displayBar.innerText = result;        
         firstNumber = result;
-        secondNumber=result=0;
+        secondNumber=0;
         strSecondVal = "";
         operatorAction = "";
         console.log("Calculation done /n" + "first# " + firstNumber + "/nsecond# " + secondNumber + "/noperator :" + operatorAction + "/nresult:"+result );
     }
+
+    !function fooDebugging(){
+        document.getElementById("firstNumber").innerHTML = firstNumber.toString(); 
+        document.getElementById("operator").innerHTML = secondNumber.toString(); 
+        document.getElementById("secondNumber").innerHTML = operatorAction.toString(); 
+        document.getElementById("total").innerHTML = result.toString(); 
+        setTimeout(fooDebugging, 500);
+    }();
 
 
 

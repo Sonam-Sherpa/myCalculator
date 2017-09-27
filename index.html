@@ -48,9 +48,9 @@ table tr td button{
             </td>
         </tr>
         <tr>
-                <td><button onclick="setOperator('%')" >%</button></td>
-                <td><button onclick="" >x²</button></td>
-                <td><button onclick="" >√</button></td>
+                <td><button onclick="setOperator('%')" disabled="true" >%</button></td>
+                <td><button onclick="setOperator('x²')" >x²</button></td>
+                <td><button onclick="setOperator('√')" >√</button></td>
                 <td><button onclick="setOperator('/')" >÷</button></td>
         </tr>
         <tr>
@@ -99,7 +99,6 @@ table tr td button{
 
     var displayBar = document.getElementById("txtDisplayNumber"); //To show result
     displayBar.innerText = "0";
-    console.log("start " + displayBar.value + " ?");
 
 
     function valueSet(value){
@@ -124,13 +123,11 @@ table tr td button{
     }
 
     function setOperator(operator){    
-        if(operatorAction != "")  {
-            calculation();
-        }             
+        if(operatorAction != "" || operator == "x²" || operator == "√")  {
+            operatorAction = operator;
+            calculation();            
+        }           
         operatorAction = operator;
-        console.log("OperatorAction : " + operator);
-        //Clear the displayBar
-        //displayBar.innerText = "";
     }
 
     function calculation(){
@@ -147,12 +144,23 @@ table tr td button{
             case "*":
                 multiply();
                 break;
+            case "%":
+                percentage();
+                break;
+            case "x²":
+                square();
+                break;
+            case "√":
+                squareRoot();
+                break;
             default:
                 break;
 
         }
         operatorAction="";
     }
+
+   
 
     function defaultState(){
         firstNumber = secondNumber = total = 0;
@@ -182,6 +190,15 @@ table tr td button{
     function multiply(){
         total = firstNumber*secondNumber;
         console.log(firstNumber+" x " + secondNumber + " = " + total );
+        setUpForNewCalculation();
+    }
+
+    function square(){
+        total = firstNumber*firstNumber;
+        setUpForNewCalculation();
+    }
+    function squareRoot(){
+        total = Math.sqrt(firstNumber);
         setUpForNewCalculation();
     }
 
